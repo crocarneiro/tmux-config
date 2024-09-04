@@ -1,11 +1,9 @@
 #!/bin/bash
 
 SESSION="PAY"
-OPTSTRING=":rh"
+OPTSTRING=":rhs:"
 HELP=false
 RECREATE=false
-
-source ./aliases.sh
 
 print_help() {
 	echo "This script initializes my tmux environment"
@@ -36,12 +34,17 @@ while getopts ${OPTSTRING} opt; do
 		r)
 			RECREATE=true
 			;;
+		s)
+			SESSION=$OPTARG >&2
+			;;
 		?)
 			echo "Invalid option: -${OPTARG}."
 			exit 1
 			;;
 	esac
 done
+
+echo "Session: $SESSION"
 
 if [ "$HELP" = true ]; then
 	print_help
